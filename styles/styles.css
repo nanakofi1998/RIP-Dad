@@ -1,0 +1,296 @@
+/* Your existing CSS (unchanged) */
+/* Body Styles */
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: radial-gradient(#f3f3f3, #ddd);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.title-container {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .fleur-de-lis-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0 15px;
+  }
+  
+  .divider-line {
+    width: 100px;
+    height: 1px;
+    background: #8c6e4f; /* Matching your parchment color */
+    margin: 0 10px;
+  }
+  
+  .fleur-de-lis-img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    margin: 0 10px;
+  }
+  
+  @media (max-width: 576px) {
+    .divider-line {
+      width: 60px;
+    }
+    .fleur-de-lis-img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+/* Envelope Container */
+.envelope-container {
+    perspective: 1000px;
+    margin: 40px 0;
+}
+
+/* Envelope Styles */
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Envelope Front */
+.envelope .front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #c2a782, #a38b6a);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    z-index: 2;
+    transform-origin: bottom;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Flap Styles */
+.envelope .flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 90px solid #6e6e6e;
+    top: 0;
+    transform-origin: top;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 3;
+    border-top-color: #8c6e4f;
+}
+
+/* Pocket (bottom part of envelope) */
+.envelope .pocket {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #b29872, #8c6e4f);
+    ;
+    border-radius: 0 0 5px 5px;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Letter inside envelope */
+.envelope .letter {
+    position: absolute;
+    width: 96%;
+    height: 96%;
+    background: #f9f9f9;
+    border-radius: 3px;
+    top: 2%;
+    left: 2%;
+    z-index: 1;
+    transform: translateY(0);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    background: #f5edd8;
+    /* Light parchment */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.envelope .letter-content {
+    width: 90%;
+    height: 90%;
+    background: #f9f4e6;
+    /* Cream-colored paper */
+    border: 1px solid #d4c6a5;
+    /* Aged paper border */
+    /* Paper texture effect */
+    background-image:
+        linear-gradient(rgba(215, 190, 160, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(215, 190, 160, 0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+}
+
+.envelope .seal {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #555, #333);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Open State */
+.envelope.open {
+    transform: translateY(-50px);
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    border-top-color: #7a5c3c;
+}
+
+.envelope.open .front {
+    transform: rotateX(180deg);
+    background: linear-gradient(135deg, #a38b6a, #7a5c3c);
+}
+
+.envelope.open .letter {
+    transform: translateY(-100px);
+    z-index: 4;
+}
+
+/* Open Label */
+.open-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #fff;
+    z-index: 5;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.envelope.open .open-label {
+    opacity: 0;
+}
+
+/* Envelope Shadow */
+.envelope::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    filter: blur(10px);
+    transition: all 0.8s ease;
+}
+
+.envelope.open::after {
+    bottom: -25px;
+    width: 90%;
+    filter: blur(15px);
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    h1.title {
+        font-size: 1.4rem;
+        margin-bottom: 40px;
+    }
+
+    .envelope {
+        width: 220px;
+        height: 140px;
+    }
+
+    .envelope .flap {
+        border-left: 110px solid transparent;
+        border-right: 110px solid transparent;
+        border-top: 70px solid #6e6e6e;
+    }
+
+    .open-label {
+        font-size: 1rem;
+    }
+}
+
+/* NEW: Medieval Wax Seal Styles */
+.flap {
+    position: relative;
+}
+
+.flap::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: #a52a2a;
+    background: radial-gradient(circle at 30% 30%, #d04a4a, #8b0000);
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 3px 5px rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    z-index: 4;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Wax Seal Crest Design */
+.flap::after {
+    content: '✠';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: rgba(255, 215, 0, 0.8);
+    z-index: 5;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+/* Wax Drips for Authenticity */
+.wax-drip {
+    position: absolute;
+    background: #8b0000;
+    width: 8px;
+    height: 15px;
+    border-radius: 0 0 4px 4px;
+    z-index: 3;
+}
+
+.wax-drip:nth-child(1) {
+    bottom: -15px;
+    left: calc(50% - 30px);
+    height: 12px;
+    transform: rotate(15deg);
+}
+
+.wax-drip:nth-child(2) {
+    bottom: -15px;
+    left: calc(50% + 25px);
+    height: 18px;
+    transform: rotate(-10deg);
+}

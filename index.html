@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Funeral Invitation</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"/>
+  <!-- Animations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"/>
+  <!-- Custom Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+    <div class="title-container">
+        <h1 class="title">We the Bampoe Family Cordially Request Your Presence</h1>
+        <div class="fleur-de-lis-divider">
+          <div class="divider-line"></div>
+          <img src="assets/img/fleur-de-lis.png" class="fleur-de-lis-img" alt="Fleur-de-lis decoration">
+          <div class="divider-line"></div>
+        </div>
+      </div>
+
+  <div class="envelope" id="envelope">
+    <div class="front">
+      <div class="flap">
+        <div class="wax-drip"></div>
+        <div class="wax-drip"></div>
+      </div>
+      <div class="pocket"></div>
+    </div>
+    <div class="letter">
+      <div class="letter-content">
+        <div class="seal"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="hymnAudio" src="assets/audio/Christian_Hymn_-_God_Be_With_You_CeeNaija.com_.mp3" loop></audio>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const hymn = document.getElementById('hymnAudio');
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('open');
+      
+      setTimeout(() => {
+        Swal.fire({
+          imageUrl: 'assets/img/invitation.png',
+          imageAlt: 'Funeral Invitation',
+          width: '650px',
+          padding: '2rem',
+          background: '#fff',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          didOpen: () => {
+            hymn.play().catch(() => {
+              console.warn('Autoplay blocked — tap to allow audio.');
+            });
+          },
+          willClose: () => {
+            hymn.pause();
+            hymn.currentTime = 0;
+            envelope.classList.remove('open');
+          }
+        });
+      }, 1000);
+    });
+</script>
+</body>
+</html>
